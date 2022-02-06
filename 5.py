@@ -5,9 +5,3 @@ obj = json.loads(json_text)
 message2 = obj['messages'][1]['message']
 
 print(message2)
-
-
-
-
-
-
