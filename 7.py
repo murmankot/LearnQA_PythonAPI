@@ -21,11 +21,31 @@ print('Задание 7.4')
 parameters = [{"method": "GET"}, {"method": "POST"}, {"method": "PUT"}, {"method": "DELETE"}]
 methods = ['get', 'post', 'put', 'delete']
 url = 'https://playground.learnqa.ru/ajax/api/compare_query_type'
+
+# обход циклом со всеми сочетаниями методов и параметров
+list_of_answers = []
 for method_name in methods:
-    print(method_name)
     for parameter_name in parameters:
         if method_name != 'get':
             response4 = requests.request(method_name, url, data=parameter_name)
+            list_of_answers.append([method_name, parameter_name['method'], response4.text])
         else:
             response4 = requests.request(method_name, url, params=parameter_name)
-        print(f"При вызове метода {method_name} c параметром method={parameter_name['method']} получаем ответ: {response4.text}")
+            list_of_answers.append([method_name, parameter_name['method'], response4.text])
+
+# проверка корректности ответов после обхода методов циклом
+list_of_answers_new = []
+for answer in list_of_answers:
+    if answer[0].casefold() == answer[1].casefold():
+        if answer[2] == '{"success":"!"}':
+            list_of_answers_new.append([answer[0], answer[1], answer[2], "Ответ корректный"])
+    else:
+        if answer[2] == 'Wrong method provided':
+            list_of_answers_new.append([answer[0], answer[1], answer[2], "Ответ корректный"])
+        else:
+            list_of_answers_new.append([answer[0], answer[1], answer[2], "Ответ некорректный"])
+
+# поиск некорректных ответов и вывод, если они есть
+for item in list_of_answers_new:
+    if item[3] == 'Ответ некорректный':
+        print('Метод compare_query_type отвечает некорректно при сочетании параметров:', item)
