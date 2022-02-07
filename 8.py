@@ -35,7 +35,7 @@ time.sleep(seconds+1)
 print('Задание 8.4')
 
 response3 = requests.get('https://playground.learnqa.ru/ajax/api/longtime_job', params=token)
-print(f'Вызов метода с токеном {token_for_print} после ожидания {seconds}. Получен ответ метода:', response3.text)
+print(f'Вызов метода с токеном {token_for_print} после ожидания {seconds} секунд. Получен ответ метода:', response3.text)
 
 # проверка значения поля status
 if (json.loads(response3.text))['status'] == 'Job is ready':
