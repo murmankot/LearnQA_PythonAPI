@@ -131,3 +131,4 @@ dmypy.json
 #for testing
 .idea
 .pytest_cache
+logs/*
