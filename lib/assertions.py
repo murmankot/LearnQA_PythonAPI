@@ -14,6 +14,11 @@ class Assertions:
         assert response_as_dict[name] == expected_value, error_message
 
     @staticmethod
+    def assert_error_by_text(response: Response, expected_value, error_message):
+
+        assert response.content.decode("utf-8") == expected_value, error_message
+
+    @staticmethod
     def assert_json_has_key(response: Response, name):
         try:
             response_as_dict = response.json()

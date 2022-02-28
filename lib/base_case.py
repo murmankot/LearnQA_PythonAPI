@@ -3,6 +3,11 @@ import json.decoder
 from requests import Response
 from datetime import datetime
 
+from random import choice
+from string import ascii_letters
+from string import digits
+from lib.my_requests import MyRequests
+
 
 class BaseCase:
     def get_cookie(self, response: Response, cookie_name):
@@ -23,16 +28,35 @@ class BaseCase:
 
         return response_as_dict[name]
 
-    def prepare_registration_data(self, email=None):
+    def prepare_registration_data(self,  username=None, firstname=None, lastname=None, email=None, password=None):
+        if username is None:
+            username = (''.join(choice(ascii_letters) for i in range(9)))
+        if firstname is None:
+            firstname = (''.join(choice(ascii_letters) for i in range(10)))
+        if lastname is None:
+            lastname = (''.join(choice(ascii_letters) for i in range(12)))
         if email is None:
             base_part = "learnqa"
             domain = "example.com"
             random_part = datetime.now().strftime("%m%d%Y%H%M%S")
             email = f"{base_part}{random_part}@{domain}"
+        if password is None:
+            password = (''.join(choice(digits) for i in range(10)))
         return {
-            'password': '123',
-            'username': 'learnqa',
-            'firstName': 'learnqa',
-            'lastName': 'learnqa',
-            'email': email
+            'username': username,
+            'firstName': firstname,
+            'lastName': lastname,
+            'email': email,
+            'password': password
         }
+
+    def send_request_without_param(self, key, data=None):
+        if data is None:
+            data = self.prepare_registration_data()
+        try:
+            del data[key]
+        except KeyError:
+            raise Exception(f"Key {key} does not exist in {data}")
+        response = MyRequests.post("/user/", data=data)
+        return response
+
