@@ -4,10 +4,13 @@ from lib.assertions import Assertions
 from random import choice
 from string import ascii_letters
 import pytest
+import allure
 
 
+@allure.epic("Register user cases")
 class TestUserRegister(BaseCase):
 
+    @allure.testcase('https://docs.qameta.io/', 'Testcase link')
     def test_create_user_successfully(self):
         data = self.prepare_registration_data()
 

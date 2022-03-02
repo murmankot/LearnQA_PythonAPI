@@ -1,9 +1,12 @@
 from lib.my_requests import MyRequests
 from lib.base_case import BaseCase
 from lib.assertions import Assertions
+import allure
 
 
+@allure.epic("Get user information cases")
 class TestUSerGet(BaseCase):
+    @allure.step("Get user details without auth")
     def test_get_user_details_not_auth(self):
         response = MyRequests.get("/user/2")
 
