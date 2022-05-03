@@ -6,6 +6,10 @@ class First(Parent):
     pass
 
 
+class Second(Parent):
+    pass
+
+
 class A(First):
     i = 3
 

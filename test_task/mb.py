@@ -1,4 +1,7 @@
-class B:
+from ma import *
+
+
+class B(Second):
     def __init__(self, o):
         self.o = o
 

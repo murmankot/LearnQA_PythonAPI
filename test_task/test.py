@@ -20,14 +20,16 @@ def test():
     assert (a.fnc(2) == 2 * 2 * 3)
     assert (b.fnc(10, 4) == 10 * 4 * 5)
     assert (a.is_first() == 1)
-    #assert (a.is_second == 0)
+    #assert (a.is_second == 0)  не удалось реализовать, так как функция
+    # вызвана без аргумента, и не может вернуть число
     assert (b.is_first() == 0)
-    #assert (b.is_second == 1)
+    #assert (b.is_second == 1) не удалось реализовать, так как функция
+    # вызвана без аргумента, и не может вернуть число
 
     assert isinstance(a, First)
-    #assert isinstance(b, Second)
+    assert isinstance(b, Second)
     assert isinstance(a, Parent)
-    #assert isinstance(b, Parent)
+    assert isinstance(b, Parent)
 
     # по этому куску кода возник большой вопрос, я не стала эту проверку комментировать,
     # так как "a.fnc(7)" всегда работает, и exception не вызывается,
